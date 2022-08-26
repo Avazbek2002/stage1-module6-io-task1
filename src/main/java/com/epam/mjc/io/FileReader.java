@@ -1,5 +1,7 @@
 package com.epam.mjc.io;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,7 +15,7 @@ public class FileReader {
     }
 
     private String[] readFile (File file) {
-        FileInputStream inputStream;
+        FileInputStream inputStream =  null;
         String[] finalOutput = null;
 
         try {
@@ -36,7 +38,8 @@ public class FileReader {
         }
         finally {
             try {
-                inputStream.close();
+                if (inputStream != null)
+                   inputStream.close();
             }
             catch (IOException ex) {
                 ex.printStackTrace();
