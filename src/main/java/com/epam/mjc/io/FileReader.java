@@ -7,13 +7,13 @@ import java.util.HashMap;
 
 public class FileReader {
 
-    public static Profile getDataFromFile(File file) {
+    public Profile getDataFromFile(File file) {
 
         return createProfile(file);
     }
 
-    private static String[] readFile (File file) {
-        FileInputStream inputStream;
+    private String[] readFile (File file) {
+        FileInputStream inputStream = null;
         String[] finalOutput = null;
 
         try {
@@ -31,16 +31,22 @@ public class FileReader {
 
             }
 
-            inputStream.close();
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch(IOException ex) {
+           ex.printStackTrace();
+        }
+        finally {
+            try {
+                inputStream.close();
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
 
         return finalOutput;
     }
 
-    private static HashMap<String, String> parseKeyValue (String [] inputString)  {
+    private HashMap<String, String> parseKeyValue (String [] inputString)  {
         HashMap<String, String> finalOutput = new HashMap<>();
 
         finalOutput.put("Name", inputString[0].substring(inputString[0].indexOf(':') + 2));
@@ -51,14 +57,9 @@ public class FileReader {
         return finalOutput;
     }
 
-    private static Profile createProfile (File file) {
+    private Profile createProfile (File file) {
         HashMap<String, String> map = parseKeyValue(readFile(file));
         return new Profile (map.get("Name"), Integer.parseInt(map.get("Age")),
                 map.get("Email"), Long.parseLong(map.get("Phone")));
-    }
-
-    public static void main (String [] args) {
-        File file = new File("src/main/resources/Profile.txt");
-        System.out.println(getDataFromFile(file));
     }
 }
