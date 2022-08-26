@@ -7,12 +7,12 @@ import java.util.HashMap;
 
 public class FileReader {
 
-    public Profile getDataFromFile(File file) throws IOException{
+    public Profile getDataFromFile(File file) {
 
         return createProfile(file);
     }
 
-    private String[] readFile (File file) throws IOException {
+    private String[] readFile (File file) {
         FileInputStream inputStream = null;
         String[] finalOutput = null;
 
@@ -30,13 +30,12 @@ public class FileReader {
                 finalOutput[count] = finalOutput[count] + (char)c;
 
             }
+
+            inputStream.close();
+
         } catch (IOException ex) {
             ex.printStackTrace();
-        }
-        finally {
-            if (inputStream != null)
-                inputStream.close();
-        }
+          }
 
         return finalOutput;
     }
@@ -52,7 +51,7 @@ public class FileReader {
         return finalOutput;
     }
 
-    private Profile createProfile (File file) throws IOException {
+    private Profile createProfile (File file) {
         HashMap<String, String> map = parseKeyValue(readFile(file));
         return new Profile (map.get("Name"), Integer.parseInt(map.get("Age")),
                 map.get("Email"), Long.parseLong(map.get("Phone")));
