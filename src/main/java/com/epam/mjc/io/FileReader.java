@@ -15,11 +15,10 @@ public class FileReader {
     }
 
     private String[] readFile (File file) {
-        FileInputStream inputStream =  null;
         String[] finalOutput = null;
+        String absolutePath = file.getAbsolutePath();
 
-        try {
-            inputStream = new FileInputStream(file.getAbsolutePath());
+        try (FileInputStream inputStream = new FileInputStream(absolutePath);) {
             finalOutput = new String[4];
 
             int c, count = 0;
@@ -35,15 +34,6 @@ public class FileReader {
 
         } catch(IOException ex) {
            ex.printStackTrace();
-        }
-        finally {
-            try {
-                if (inputStream != null)
-                   inputStream.close();
-            }
-            catch (IOException ex) {
-                ex.printStackTrace();
-            }
         }
 
         return finalOutput;
