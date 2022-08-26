@@ -49,7 +49,7 @@ public class FileReader {
         return finalOutput;
     }
 
-    private HashMap<String, String> parseKeyValue (String [] inputString)  {
+    private @NotNull HashMap<String, String> parseKeyValue (String @NotNull [] inputString)  {
         HashMap<String, String> finalOutput = new HashMap<>();
 
         finalOutput.put("Name", inputString[0].substring(inputString[0].indexOf(':') + 2));
@@ -60,7 +60,7 @@ public class FileReader {
         return finalOutput;
     }
 
-    private Profile createProfile (File file) {
+    private @NotNull Profile createProfile (File file) {
         HashMap<String, String> map = parseKeyValue(readFile(file));
         return new Profile (map.get("Name"), Integer.parseInt(map.get("Age")),
                 map.get("Email"), Long.parseLong(map.get("Phone")));
