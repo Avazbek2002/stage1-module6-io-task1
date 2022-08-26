@@ -13,7 +13,7 @@ public class FileReader {
     }
 
     private String[] readFile (File file) {
-        FileInputStream inputStream = null;
+        FileInputStream inputStream;
         String[] finalOutput = null;
 
         try {
